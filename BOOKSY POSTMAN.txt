@@ -1,0 +1,49 @@
+BOOKSY POSTMAN
+
+/users/register
+{
+  "fullName": "Mustafa Çelik",
+  "email": "mustafa.celik@barberturk.com",
+  "phoneNumber": "5311111111",
+  "password": "1234",
+  "role": "PROVIDER"
+}
+{
+  "fullName": "Mazhar Altincay",
+  "email": "mazharaltincay89@gmail.com",
+  "phoneNumber": "5375592138",
+  "password": "mazo12",
+  "role": "CUSTOMER"
+}
+
+
+/providers/{userId}/profile
+{
+  "businessName": "Fade Kings Istanbul",
+  "city": "Istanbul",
+  "description": "Premium cuts, beard trims and modern hairstyles in the heart of Kadıköy."
+}
+
+
+/services/provider/{providedProfile_Id}
+{
+  "name": "Men's Haircut",
+  "price": 150,
+  "durationMinutes": 30
+}
+{
+  "name": "Beard Trim",
+  "price": 80,
+  "durationMinutes": 20
+}
+{
+  "name": "Haircut + Beard Combo",
+  "price": 200,
+  "durationMinutes": 45
+}
+
+
+(GET) http://localhost:8080/api/services/search?city=Istanbul&name=haircut 
+
+
+
