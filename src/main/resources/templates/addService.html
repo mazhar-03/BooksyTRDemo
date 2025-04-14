@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Add Service</title>
+    <style>
+        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+<h2>Add Service</h2>
+<form th:action="@{/services/provider/{profileId}(profileId=${profileId})}" method="post" th:object="${service}">
+    <label>Service Name:</label>
+    <input type="text" th:field="*{name}" /><br><br>
+    <label>Price (₺):</label>
+    <input type="number" th:field="*{price}" /><br><br>
+    <label>Duration (minutes):</label>
+    <input type="number" th:field="*{durationMinutes}" /><br><br>
+    <button type="submit">Add Service</button>
+</form>
+</body>
+</html>

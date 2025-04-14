@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Book Appointment</title>
+    <style>
+    body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
+    table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
+    th { background: #f0f0f0; }
+</style>
+</head>
+<body>
+<h2>Book Appointment</h2>
+<form th:action="@{/appointments/book}" method="post" th:object="${appointmentRequest}">
+    <label>Customer ID:</label>
+    <input type="number" th:field="*{customerId}" /><br><br>
+
+    <label>Service ID:</label>
+    <input type="number" th:field="*{serviceId}" /><br><br>
+
+    <label>Date & Time:</label>
+    <input type="datetime-local" th:field="*{dateTime}" /><br><br>
+
+    <button type="submit">Book</button>
+</form>
+</body>
+</html>

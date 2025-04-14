@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Create Profile</title>
+    <style>
+        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+
+<body>
+<h2>Create Provider Profile</h2>
+<form th:action="@{/providers/{userId}/profile(userId=${userId})}" method="post" th:object="${profile}">
+    <label>Business Name:</label>
+    <input type="text" th:field="*{businessName}" /><br><br>
+    <label>City:</label>
+    <input type="text" th:field="*{city}" /><br><br>
+    <label>Description:</label>
+    <textarea th:field="*{description}"></textarea><br><br>
+    <button type="submit">Create Profile</button>
+</form>
+</body>
+</html>

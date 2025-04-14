@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Login</title>
+    <style>
+        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+<h2>Login</h2>
+<form th:action="@{/users/login}" method="post" th:object="${loginRequest}">
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" /><br><br>
+
+    <label>Password:</label>
+    <input type="password" th:field="*{password}" /><br><br>
+
+    <button type="submit">Login</button>
+</form>
+
+<p th:if="${message}" th:text="${message}" style="color: green;"></p>
+</body>
+</html>

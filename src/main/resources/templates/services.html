@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Service Search</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<h2>Search Services</h2>
+
+<form method="get" action="/api/services/view">
+    <label for="city">City:</label>
+    <input type="text" name="city" id="city"/>
+
+    <label for="name">Service:</label>
+    <input type="text" name="name" id="name"/>
+
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+<h3>Results:</h3>
+<table>
+    <tr>
+        <th>Service</th>
+        <th>Price</th>
+        <th>Duration (min)</th>
+        <th>City</th>
+        <th>Provider</th>
+        <th></th>
+    </tr>
+    <tr th:each="s : ${services}">
+        <td th:text="${s.name}">Service Name</td>
+        <td th:text="${s.price}">Price</td>
+        <td th:text="${s.durationMinutes}">Duration</td>
+        <td th:text="${s.providerProfile.city}">City</td>
+        <td th:text="${s.providerProfile.businessName}">Provider</td>
+        <td><a href="#">Book</a></td>
+    </tr>
+</table>
+</body>
+</html>

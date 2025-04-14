@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>My Appointments</title>
+    <style>
+        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+<h2>Appointments</h2>
+<table border="1">
+    <tr>
+        <th>Service</th>
+        <th>Date & Time</th>
+        <th>Status</th>
+        <th>Provider</th>
+    </tr>
+    <tr th:each="appt : ${appointments}">
+        <td th:text="${appt.service.name}"></td>
+        <td th:text="${appt.dateTime}"></td>
+        <td th:text="${appt.status}"></td>
+        <td th:text="${appt.service.providerProfile.businessName}"></td>
+    </tr>
+</table>
+</body>
+</html>
