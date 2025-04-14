@@ -35,13 +35,7 @@ public class ServiceItemService {
         return itemRepository.searchServices(city, name);
     }
 
-    public List<ServiceItem> searchServices(String city, String name, Long excludeUserId) {
-        List<ServiceItem> all = itemRepository.searchServices(city, name);
-        if (excludeUserId == null) return all;
-
-        return all.stream()
-                .filter(s -> s.getProviderProfile().getUser().getId().equals(excludeUserId))
-                .toList();
+    public List<ServiceItem> searchServices(String city, String name, Long excludedProfileId) {
+        return itemRepository.searchServicesExcludeProvider(city, name, excludedProfileId);
     }
-
 }

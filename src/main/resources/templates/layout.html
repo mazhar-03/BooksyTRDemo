@@ -13,32 +13,41 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand text-white" href="#">Booksy</a>
+    <a class="navbar-brand text-white" href="/">Booksy</a>
 
     <div class="collapse navbar-collapse justify-content-end">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" th:href="@{/users/register}">Register</a></li>
-            <li class="nav-item" th:if="${session.user == null}"><a class="nav-link" th:href="@{/users/login}">Login</a></li>
+        <ul class="navbar-nav align-items-center">
+            <li class="nav-item" th:if="${session.loggedInUser == null}">
+                <a class="nav-link" th:href="@{/users/register}">Register</a>
+            </li>
+            <li class="nav-item" th:if="${session.loggedInUser == null}">
+                <a class="nav-link" th:href="@{/users/login}">Login</a>
+            </li>
 
-            <li class="nav-item" th:if="${session.user != null}">
+            <li class="nav-item" th:if="${session.loggedInUser != null}">
                 <a class="nav-link" th:href="@{/services/view}">Services</a>
             </li>
 
-            <li class="nav-item" th:if="${session.user != null && session.user.role.name() == 'CUSTOMER'}">
-                <a class="nav-link" th:href="@{/appointments/customer/{id}(id=${session.user.id})}">My Appointments</a>
+            <li class="nav-item" th:if="${session.loggedInUser?.role?.name() == 'CUSTOMER'}">
+                <a class="nav-link" th:href="@{/appointments/personal}">My Appointments</a>
             </li>
 
-            <li class="nav-item" th:if="${session.user != null && session.user.role.name() == 'PROVIDER'}">
-                <a class="nav-link" th:href="@{/appointments/provider/{id}(id=${session.user.id})}">Provider Appointments</a>
+            <li class="nav-item" th:if="${session.loggedInUser?.role?.name() == 'PROVIDER'}">
+                <a class="nav-link" th:href="@{/appointments/provider}">Provider Appointments</a>
+            </li>
+
+            <li class="nav-item ms-3 text-white fw-bold" th:if="${session.loggedInUser != null}">
+                Welcome, <span th:text="${session.loggedInUser.email}">email@example.com</span>
+            </li>
+
+            <li class="nav-item" th:if="${session.loggedInUser != null}">
+                <a class="nav-link text-danger" th:href="@{/users/logout}">Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 
-
-
 <div class="container mt-4" layout:fragment="content">
-    <!-- Content will be injected here -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Welcome</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="container mt-2">
+    <div th:if="${logoutSuccess}" class="alert alert-success text-center" role="alert">
+      <span th:text="${logoutSuccess}"></span>
+    </div>
+  </div>
+  <div class="text-center mt-5">
+    <h1>👋 Welcome to Booksy!</h1>
+    <p>Find and manage your appointments easily.</p>
+
+    <div th:if="${user == null}" class="mt-4">
+      <a th:href="@{/users/login}" class="btn btn-primary me-2">Login</a>
+      <a th:href="@{/users/register}" class="btn btn-outline-secondary">Register</a>
+    </div>
+
+    <div th:if="${user != null}" class="mt-4">
+      <h5 th:text="'Logged in as: ' + ${user.email}"></h5>
+      <a th:href="@{/users/logout}" class="btn btn-danger mt-3">Logout</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

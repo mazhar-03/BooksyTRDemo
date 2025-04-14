@@ -27,9 +27,13 @@ public class ServiceItemPageController {
                                HttpSession session,
                                Model model) {
         User user = (User) session.getAttribute("loggedInUser");
-        Long excludeUserId = user != null ? user.getId() : null;
+        Long excludedProfileId = null;
 
-        List<ServiceItem> services = serviceItemService.searchServices(city, name, excludeUserId);
+        if (user != null && user.getRole() == User.Role.PROVIDER) {
+            excludedProfileId = (Long) session.getAttribute("profileId");
+        }
+
+        List<ServiceItem> services = serviceItemService.searchServices(city, name, excludedProfileId);
         model.addAttribute("services", services);
         return "services";
     }

@@ -34,23 +34,18 @@ public class UserPageController {
     @PostMapping("/login")
     public String login(@ModelAttribute("loginRequest") LoginRequest loginRequest,
                         HttpSession session,
-                        RedirectAttributes redirectAttributes,
                         Model model) {
         try {
             User user = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
             session.setAttribute("loggedInUser", user);
 
             if (user.getRole() == User.Role.PROVIDER) {
-                var profileOpt = providerProfileService.findByUserId(user.getId());
-
-                if (profileOpt.isPresent()) {
-                    Long profileId = profileOpt.get().getId();
-                    session.setAttribute("profileId", profileId);
-                    return "redirect:/dashboard/provider";
-                } else {
-                    return "redirect:/providers/create-profile";
-                }
-
+                return providerProfileService.findByUserId(user.getId())
+                        .map(profile -> {
+                            session.setAttribute("profileId", profile.getId());
+                            return "redirect:/dashboard/provider";
+                        })
+                        .orElse("redirect:/providers/create-profile");
             } else {
                 return "redirect:/dashboard/customer";
             }
@@ -73,5 +68,12 @@ public class UserPageController {
         model.addAttribute("message", "Registration successful!");
         return "register";
     }
-}
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("logoutSuccess", "You have been logged out successfully.");
+        return "redirect:/home";
+    }
+
+}
