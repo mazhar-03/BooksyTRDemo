@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>My Services</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="container mt-5">
+    <h2 class="text-center">💼 My Services</h2>
+
+    <div class="table-responsive mt-4">
+      <table class="table table-bordered table-striped shadow">
+        <thead class="table-dark text-white">
+        <tr>
+          <th>Service</th>
+          <th>Price (₺)</th>
+          <th>Duration (min)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="service : ${services}">
+          <td th:text="${service.name}">Service Name</td>
+          <td th:text="${service.price}">Price</td>
+          <td th:text="${service.durationMinutes}">Duration</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

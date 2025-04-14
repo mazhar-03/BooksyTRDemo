@@ -15,7 +15,7 @@
     <div class="d-flex justify-content-center mt-4 gap-2">
       <a th:href="@{/appointments/personal}" class="btn btn-outline-primary">My Bookings</a>
       <a th:href="@{/appointments/provider}" class="btn btn-outline-secondary">Customer Appointments</a>
-
+      <a th:href="@{/services/provider/my-services}" class="btn btn-outline-dark">My Services</a>
       <a th:if="${profileId != null}"
          th:href="@{/services/provider/{profileId}/add-form(profileId=${profileId})}"
          class="btn btn-primary">

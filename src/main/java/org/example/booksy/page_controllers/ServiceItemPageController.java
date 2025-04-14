@@ -1,5 +1,6 @@
 package org.example.booksy.page_controllers;
 
+import jakarta.servlet.http.HttpSession;
 import org.example.booksy.model.ServiceItem;
 import org.example.booksy.service.ServiceItemService;
 import org.springframework.stereotype.Controller;
@@ -46,5 +47,16 @@ public class ServiceItemPageController {
         serviceItemService.createService(profileId, service);
         redirectAttributes.addFlashAttribute("message", "Service added successfully!");
         return "redirect:/services/provider/" + profileId + "/add-form";
+    }
+
+    @GetMapping("/provider/my-services")
+    public String viewMyServices(HttpSession session, Model model) {
+        Long profileId = (Long) session.getAttribute("profileId");
+        if (profileId == null)
+            return "redirect:/users/login";
+
+        List<ServiceItem> services = serviceItemService.getServicesByProvider(profileId);
+        model.addAttribute("services", services);
+        return "providerServices";
     }
 }
