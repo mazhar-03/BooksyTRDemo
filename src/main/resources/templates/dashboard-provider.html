@@ -12,10 +12,20 @@
     <h2 class="text-center">👋 Welcome, Provider!</h2>
     <p class="lead text-center">Manage your services and view upcoming appointments.</p>
 
-    <div class="d-flex justify-content-center mt-4">
-      <a th:href="@{/appointments/provider}" class="btn btn-outline-dark">My Appointments</a>
-      <a th:href="@{/services/provider/{profileId}/add-form(profileId=${profileId})}" class="btn btn-primary">
+    <div class="d-flex justify-content-center mt-4 gap-2">
+      <a th:href="@{/appointments/personal}" class="btn btn-outline-primary">My Bookings</a>
+      <a th:href="@{/appointments/provider}" class="btn btn-outline-secondary">Customer Appointments</a>
+
+      <a th:if="${profileId != null}"
+         th:href="@{/services/provider/{profileId}/add-form(profileId=${profileId})}"
+         class="btn btn-primary">
         Add Service
+      </a>
+
+      <a th:if="${profileId == null}"
+         th:href="@{/providers/create-profile}"
+         class="btn btn-warning">
+        Create Profile
       </a>
     </div>
   </div>

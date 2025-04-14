@@ -24,6 +24,9 @@ public class ServiceItemPageController {
                                @RequestParam(required = false) String name,
                                Model model) {
 
+        city = (city != null && !city.trim().isEmpty()) ? city : null;
+        name = (name != null && !name.trim().isEmpty()) ? name : null;
+
         List<ServiceItem> services = serviceItemService.searchServices(city, name);
         model.addAttribute("services", services);
         return "services";

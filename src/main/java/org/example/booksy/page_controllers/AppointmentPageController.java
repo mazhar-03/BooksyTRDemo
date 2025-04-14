@@ -8,6 +8,7 @@ import org.example.booksy.service.AppointmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -21,47 +22,60 @@ public class AppointmentPageController {
         this.appointmentService = appointmentService;
     }
 
-    @GetMapping("/book-form")
-    public String showBookingForm(Model model) {
-        model.addAttribute("appointmentRequest", new AppointmentRequest());
-        return "bookAppointment";
+    @GetMapping("/customer")
+    public String viewCustomerAppointments(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+
+        if (user == null || user.getRole() != User.Role.CUSTOMER) {
+            return "redirect:/users/login";
+        }
+
+        List<Appointment> appointments = appointmentService.getAppointmentsByCustomer(user.getId());
+        model.addAttribute("appointments", appointments);
+        return "appointments";
+    }
+
+    @GetMapping("/provider")
+    public String providerAppointments(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        Long profileId = (Long) session.getAttribute("profileId");
+        model.addAttribute("appointments", appointmentService.getAppointmentsByProvider(profileId));
+        return "providerAppointments";
+    }
+
+    @GetMapping("/personal")
+    public String personalAppointments(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        model.addAttribute("appointments", appointmentService.getAppointmentsByCustomer(user.getId()));
+        return "appointments";
     }
 
     @GetMapping("/book")
-    public String showBookingForm(@RequestParam Long serviceId, Model model, HttpSession session) {
-        AppointmentRequest request = new AppointmentRequest();
-        request.setServiceId(serviceId);
-
-        // Optionally set customer ID from session
+    public String showBookingForm(@RequestParam Long serviceId, HttpSession session, Model model) {
         User user = (User) session.getAttribute("loggedInUser");
-        if (user != null && user.getRole() == User.Role.CUSTOMER) {
-            request.setCustomerId(user.getId());
+        if (user == null) {
+            return "redirect:/users/login";
         }
+
+        AppointmentRequest request = new AppointmentRequest();
+        request.setCustomerId(user.getId());
+        request.setServiceId(serviceId);
 
         model.addAttribute("appointmentRequest", request);
         return "bookAppointment";
     }
 
+
     @PostMapping("/book")
-    public String bookAppointment(@ModelAttribute AppointmentRequest request, Model model) {
-        appointmentService.bookAppointment(request.getCustomerId(), request.getServiceId(), request.getDateTime());
-        model.addAttribute("message", "Appointment booked!");
-        model.addAttribute("appointmentRequest", new AppointmentRequest());
-        return "bookAppointment";
-    }
+    public String bookAppointment(@ModelAttribute AppointmentRequest appointmentRequest,
+                                  RedirectAttributes redirectAttributes) {
+        appointmentService.bookAppointment(
+                appointmentRequest.getCustomerId(),
+                appointmentRequest.getServiceId(),
+                appointmentRequest.getDateTime()
+        );
 
-    @GetMapping("/appointments/customer/{id}")
-    public String viewCustomerAppointments(@PathVariable("id") Long customerId, Model model) {
-        List<Appointment> appointments = appointmentService.getAppointmentsByCustomer(customerId);
-        model.addAttribute("appointments", appointments);
-        return "appointments";
+        redirectAttributes.addFlashAttribute("message", "Appointment booked successfully!");
+        return "redirect:/appointments/personal";
     }
-
-    @GetMapping("/provider/{providerId}")
-    public String viewProviderAppointments(@PathVariable Long providerId, Model model) {
-        List<Appointment> appointments = appointmentService.getAppointmentsByProvider(providerId);
-        model.addAttribute("appointments", appointments);
-        return "providerAppointments"; // maps to templates/providerAppointments.html
-    }
-
 }
