@@ -2,6 +2,7 @@ package org.example.booksy.page_controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.booksy.model.ServiceItem;
+import org.example.booksy.model.User;
 import org.example.booksy.service.ServiceItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,12 +24,12 @@ public class ServiceItemPageController {
     @GetMapping("/view")
     public String viewServices(@RequestParam(required = false) String city,
                                @RequestParam(required = false) String name,
+                               HttpSession session,
                                Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        Long excludeUserId = user != null ? user.getId() : null;
 
-        city = (city != null && !city.trim().isEmpty()) ? city : null;
-        name = (name != null && !name.trim().isEmpty()) ? name : null;
-
-        List<ServiceItem> services = serviceItemService.searchServices(city, name);
+        List<ServiceItem> services = serviceItemService.searchServices(city, name, excludeUserId);
         model.addAttribute("services", services);
         return "services";
     }

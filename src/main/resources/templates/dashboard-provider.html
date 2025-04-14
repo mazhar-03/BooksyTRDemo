@@ -21,7 +21,7 @@
          class="btn btn-primary">
         Add Service
       </a>
-
+      <a th:href="@{/services/view}" class="btn btn-info">Book a Service</a>
       <a th:if="${profileId == null}"
          th:href="@{/providers/create-profile}"
          class="btn btn-warning">
