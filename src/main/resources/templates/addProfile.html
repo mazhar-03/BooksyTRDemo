@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
-<div class="col-md-6 offset-md-3">
-    <h2 class="mb-4 text-center">Create Provider Profile</h2>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Create Provider Profile</title>
+</head>
 
-    <form th:action="@{/providers/{userId}/profile(userId=${userId})}" method="post" th:object="${profile}" class="row g-3">
-        <div class="col-12">
-            <label for="businessName" class="form-label">Business Name</label>
-            <input type="text" th:field="*{businessName}" class="form-control" id="businessName" required>
-        </div>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="mb-4 text-center">Create Provider Profile</h2>
 
-        <div class="col-12">
-            <label for="city" class="form-label">City</label>
-            <input type="text" th:field="*{city}" class="form-control" id="city" required>
-        </div>
+            <form th:action="@{/providers/{userId}/profile(userId=${userId})}"
+                  method="post" th:object="${profile}" class="row g-3">
+                <div class="col-12">
+                    <label for="businessName" class="form-label">Business Name</label>
+                    <input type="text" th:field="*{businessName}" class="form-control" id="businessName" required>
+                </div>
 
-        <div class="col-12">
-            <label for="description" class="form-label">Description</label>
-            <textarea th:field="*{description}" class="form-control" id="description" rows="4" required></textarea>
-        </div>
+                <div class="col-12">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" th:field="*{city}" class="form-control" id="city" required>
+                </div>
 
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary w-100">Create Profile</button>
+                <div class="col-12">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea th:field="*{description}" class="form-control" id="description" rows="4" required></textarea>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary w-100">Create Profile</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
+</body>
 </html>

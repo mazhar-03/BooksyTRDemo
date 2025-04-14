@@ -5,6 +5,7 @@ import org.example.booksy.service.ServiceItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ServiceItemPageController {
 
         List<ServiceItem> services = serviceItemService.searchServices(city, name);
         model.addAttribute("services", services);
-        return "services"; // maps to templates/services.html
+        return "services";
     }
 
     @GetMapping("/provider/{profileId}/add-form")
@@ -38,10 +39,9 @@ public class ServiceItemPageController {
     @PostMapping("/provider/{profileId}")
     public String addService(@PathVariable Long profileId,
                              @ModelAttribute ServiceItem service,
-                             Model model) {
+                             RedirectAttributes redirectAttributes) {
         serviceItemService.createService(profileId, service);
-        model.addAttribute("message", "Service added!");
-        return "addService";
+        redirectAttributes.addFlashAttribute("message", "Service added successfully!");
+        return "redirect:/services/provider/" + profileId + "/add-form";
     }
-
 }

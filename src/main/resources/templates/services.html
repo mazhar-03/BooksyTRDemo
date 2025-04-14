@@ -1,53 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
-<div>
-    <h2 class="mb-4">Search Services</h2>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Search Services</title>
+</head>
 
-    <form method="get" action="/api/services/view" class="row g-3 mb-4">
-        <div class="col-md-4">
-            <label for="city" class="form-label">City</label>
-            <input type="text" class="form-control" name="city" id="city"/>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-4">
+        <h2 class="mb-4 text-center">🔍 Search Services</h2>
+
+        <form method="get" action="/api/services/view" class="row g-3 mb-4">
+            <div class="col-md-4">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" name="city" id="city"/>
+            </div>
+
+            <div class="col-md-4">
+                <label for="name" class="form-label">Service</label>
+                <input type="text" class="form-control" name="name" id="name"/>
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <h3 class="mb-3 text-center">📄 Results</h3>
+
+        <div class="table-responsive shadow rounded">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-dark text-white">
+                <tr>
+                    <th>Service</th>
+                    <th>Price</th>
+                    <th>Duration (min)</th>
+                    <th>City</th>
+                    <th>Provider</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s : ${services}">
+                    <td th:text="${s.name}">Service Name</td>
+                    <td th:text="${s.price} + ' ₺'">Price</td>
+                    <td th:text="${s.durationMinutes}">Duration</td>
+                    <td th:text="${s.providerProfile.city}">City</td>
+                    <td th:text="${s.providerProfile.businessName}">Provider</td>
+                    <td>
+                        <a th:href="@{/appointments/book(serviceId=${s.id})}" class="btn btn-sm btn-outline-success">Book</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-
-        <div class="col-md-4">
-            <label for="name" class="form-label">Service</label>
-            <input type="text" class="form-control" name="name" id="name"/>
-        </div>
-
-        <div class="col-md-4 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">Search</button>
-        </div>
-    </form>
-
-    <hr>
-
-    <h3 class="mb-3">Results</h3>
-
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped align-middle">
-            <thead class="table-light">
-            <tr>
-                <th>Service</th>
-                <th>Price</th>
-                <th>Duration (min)</th>
-                <th>City</th>
-                <th>Provider</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="s : ${services}">
-                <td th:text="${s.name}">Service Name</td>
-                <td th:text="${s.price}">Price</td>
-                <td th:text="${s.durationMinutes}">Duration</td>
-                <td th:text="${s.providerProfile.city}">City</td>
-                <td th:text="${s.providerProfile.businessName}">Provider</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-outline-success">Book</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
+</body>
 </html>

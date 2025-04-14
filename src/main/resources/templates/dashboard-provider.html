@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+  <title>Provider Dashboard</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="container mt-5">
+    <h2 class="text-center">👋 Welcome, Provider!</h2>
+    <p class="lead text-center">Manage your services and view upcoming appointments.</p>
+
+    <div class="d-flex justify-content-center mt-4">
+      <a th:href="@{/appointments/provider}" class="btn btn-outline-dark">My Appointments</a>
+      <a th:href="@{/services/provider/{profileId}/add-form(profileId=${profileId})}" class="btn btn-primary">
+        Add Service
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

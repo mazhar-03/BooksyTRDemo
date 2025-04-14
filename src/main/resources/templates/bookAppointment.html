@@ -1,28 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Book Appointment</title>
+</head>
 
-<div class="col-md-6 offset-md-3">
-    <h2 class="mb-4 text-center">Book Appointment</h2>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="mb-4 text-center">📆 Book an Appointment</h2>
 
-    <form th:action="@{/appointments/book}" method="post" th:object="${appointmentRequest}" class="row g-3">
-        <div class="col-12">
-            <label for="customerId" class="form-label">Customer ID</label>
-            <input type="number" th:field="*{customerId}" class="form-control" id="customerId" required>
+            <form th:action="@{/appointments/book}" method="post" th:object="${appointmentRequest}" class="row g-3 shadow p-4 bg-white rounded">
+                <div class="col-12">
+                    <label for="customerId" class="form-label">Customer ID</label>
+                    <input type="number" th:field="*{customerId}" class="form-control" id="customerId" required>
+                </div>
+
+                <div class="col-12">
+                    <label for="serviceId" class="form-label">Service ID</label>
+                    <input type="number" th:field="*{serviceId}" class="form-control" id="serviceId" required>
+                </div>
+
+                <div class="col-12">
+                    <label for="dateTime" class="form-label">Date & Time</label>
+                    <input type="datetime-local" th:field="*{dateTime}" class="form-control" id="dateTime" required>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success w-100">Book Appointment</button>
+                </div>
+            </form>
         </div>
-
-        <div class="col-12">
-            <label for="serviceId" class="form-label">Service ID</label>
-            <input type="number" th:field="*{serviceId}" class="form-control" id="serviceId" required>
-        </div>
-
-        <div class="col-12">
-            <label for="dateTime" class="form-label">Date & Time</label>
-            <input type="datetime-local" th:field="*{dateTime}" class="form-control" id="dateTime" required>
-        </div>
-
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
-        </div>
-    </form>
+    </div>
 </div>
+</body>
 </html>

@@ -7,6 +7,8 @@ import org.example.booksy.repository.IServiceProviderProfileRepository;
 import org.example.booksy.repository.IUserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ServiceProviderProfileService {
     private final IUserRepository userRepository;
@@ -35,5 +37,7 @@ public class ServiceProviderProfileService {
         return profileRepository.findByUserId(userId)
                 .orElseThrow(ProfileNotFoundException::new);
     }
-
+    public Optional<ServiceProviderProfile> findByUserId(Long userId) {
+        return profileRepository.findByUserId(userId);
+    }
 }

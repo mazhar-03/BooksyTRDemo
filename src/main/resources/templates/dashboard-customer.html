@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Customer Dashboard</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <h2 class="text-center">👋 Welcome, Customer!</h2>
+        <p class="lead text-center">You can now search for services and book appointments.</p>
+
+        <div class="d-flex justify-content-center mt-4">
+            <a th:href="@{/services/view}" class="btn btn-primary me-3">Search Services</a>
+            <a th:href="@{/appointments/customer}" class="btn btn-outline-dark">My Appointments</a>
+        </div>
+    </div>
+</div>>
+</body>
+</html>

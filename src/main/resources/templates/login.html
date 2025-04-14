@@ -8,6 +8,7 @@
 <body>
 <div layout:fragment="content">
     <h2>Login Page</h2>
+    <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
     <form th:action="@{/users/login}" method="post" th:object="${loginRequest}">
         <label>Email:</label>
         <input type="email" th:field="*{email}" /><br><br>

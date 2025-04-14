@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<section layout:fragment="body">
+<div layout:fragment="content">
     <div class="container mt-5">
         <h2 class="mb-4 text-center">📅 My Appointments</h2>
 
@@ -24,7 +24,7 @@
                 <tbody>
                 <tr th:each="appt : ${appointments}">
                     <td th:text="${appt.service.name}">Service Name</td>
-                    <td th:text="${#temporals.format(appt.dateTime, 'dd MMM yyyy HH:mm')}">DateTime</td>
+                    <td th:text="${#temporals.format(appt.dateTime, 'dd MMM yyyy HH:mm')}">Date & Time</td>
                     <td th:text="${appt.status}">Status</td>
                     <td th:text="${appt.service.providerProfile.businessName}">Provider</td>
                 </tr>
@@ -32,6 +32,6 @@
             </table>
         </div>
     </div>
-</section>
+</div>
 </body>
 </html>
