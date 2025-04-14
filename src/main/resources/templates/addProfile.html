@@ -1,24 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Create Profile</title>
-    <style>
-        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
-        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
-        th { background: #f0f0f0; }
-    </style>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<div class="col-md-6 offset-md-3">
+    <h2 class="mb-4 text-center">Create Provider Profile</h2>
 
-<body>
-<h2>Create Provider Profile</h2>
-<form th:action="@{/providers/{userId}/profile(userId=${userId})}" method="post" th:object="${profile}">
-    <label>Business Name:</label>
-    <input type="text" th:field="*{businessName}" /><br><br>
-    <label>City:</label>
-    <input type="text" th:field="*{city}" /><br><br>
-    <label>Description:</label>
-    <textarea th:field="*{description}"></textarea><br><br>
-    <button type="submit">Create Profile</button>
-</form>
-</body>
+    <form th:action="@{/providers/{userId}/profile(userId=${userId})}" method="post" th:object="${profile}" class="row g-3">
+        <div class="col-12">
+            <label for="businessName" class="form-label">Business Name</label>
+            <input type="text" th:field="*{businessName}" class="form-control" id="businessName" required>
+        </div>
+
+        <div class="col-12">
+            <label for="city" class="form-label">City</label>
+            <input type="text" th:field="*{city}" class="form-control" id="city" required>
+        </div>
+
+        <div class="col-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea th:field="*{description}" class="form-control" id="description" rows="4" required></textarea>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Create Profile</button>
+        </div>
+    </form>
+</div>
 </html>

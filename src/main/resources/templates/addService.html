@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Add Service</title>
-    <style>
-        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
-        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
-        th { background: #f0f0f0; }
-    </style>
-</head>
-<body>
-<h2>Add Service</h2>
-<form th:action="@{/services/provider/{profileId}(profileId=${profileId})}" method="post" th:object="${service}">
-    <label>Service Name:</label>
-    <input type="text" th:field="*{name}" /><br><br>
-    <label>Price (₺):</label>
-    <input type="number" th:field="*{price}" /><br><br>
-    <label>Duration (minutes):</label>
-    <input type="number" th:field="*{durationMinutes}" /><br><br>
-    <button type="submit">Add Service</button>
-</form>
-</body>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<div class="col-md-6 offset-md-3">
+    <h2 class="mb-4 text-center">Add Service</h2>
+
+    <form th:action="@{/services/provider/{profileId}(profileId=${profileId})}" method="post" th:object="${service}" class="row g-3">
+        <div class="col-12">
+            <label for="name" class="form-label">Service Name</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" required>
+        </div>
+
+        <div class="col-12">
+            <label for="price" class="form-label">Price (₺)</label>
+            <input type="number" th:field="*{price}" class="form-control" id="price" required>
+        </div>
+
+        <div class="col-12">
+            <label for="durationMinutes" class="form-label">Duration (minutes)</label>
+            <input type="number" th:field="*{durationMinutes}" class="form-control" id="durationMinutes" required>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Add Service</button>
+        </div>
+    </form>
+</div>
 </html>

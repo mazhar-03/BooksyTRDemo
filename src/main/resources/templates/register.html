@@ -1,39 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>User Registration</title>
-    <style>
-        body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
-        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
-        th { background: #f0f0f0; }
-    </style>
-</head>
-<body>
-<h2>Register</h2>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
+<div class="col-md-8 offset-md-2">
+    <h2 class="mb-4">Register</h2>
 
-<form th:action="@{/users/register}" method="post" th:object="${user}">
-    <label>Full Name:</label>
-    <input type="text" th:field="*{fullName}" /><br><br>
+    <form th:action="@{/users/register}" method="post" th:object="${user}" class="row g-3">
+        <div class="col-md-6">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" th:field="*{fullName}" class="form-control" id="fullName" required>
+        </div>
 
-    <label>Email:</label>
-    <input type="email" th:field="*{email}" /><br><br>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" required>
+        </div>
 
-    <label>Phone Number:</label>
-    <input type="text" th:field="*{phoneNumber}" /><br><br>
+        <div class="col-md-6">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="text" th:field="*{phoneNumber}" class="form-control" id="phoneNumber" required>
+        </div>
 
-    <label>Password:</label>
-    <input type="password" th:field="*{password}" /><br><br>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password" required>
+        </div>
 
-    <label>Role:</label>
-    <select th:field="*{role}">
-        <option value="CUSTOMER">Customer</option>
-        <option value="PROVIDER">Provider</option>
-    </select><br><br>
+        <div class="col-md-6">
+            <label for="role" class="form-label">Role</label>
+            <select th:field="*{role}" class="form-select" id="role" required>
+                <option value="CUSTOMER">Customer</option>
+                <option value="PROVIDER">Provider</option>
+            </select>
+        </div>
 
-    <button type="submit">Register</button>
-</form>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </div>
+    </form>
 
-<p th:if="${message}" th:text="${message}" style="color: green;"></p>
-</body>
+    <div th:if="${message}" class="alert alert-success mt-4" role="alert" th:text="${message}"></div>
+</div>
 </html>

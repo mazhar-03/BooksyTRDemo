@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><title>Book Appointment</title>
-    <style>
-    body { font-family: sans-serif; background: #f9f9f9; padding: 2rem; }
-    table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    th, td { padding: 1rem; border: 1px solid #ddd; text-align: left; }
-    th { background: #f0f0f0; }
-</style>
-</head>
-<body>
-<h2>Book Appointment</h2>
-<form th:action="@{/appointments/book}" method="post" th:object="${appointmentRequest}">
-    <label>Customer ID:</label>
-    <input type="number" th:field="*{customerId}" /><br><br>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
 
-    <label>Service ID:</label>
-    <input type="number" th:field="*{serviceId}" /><br><br>
+<div class="col-md-6 offset-md-3">
+    <h2 class="mb-4 text-center">Book Appointment</h2>
 
-    <label>Date & Time:</label>
-    <input type="datetime-local" th:field="*{dateTime}" /><br><br>
+    <form th:action="@{/appointments/book}" method="post" th:object="${appointmentRequest}" class="row g-3">
+        <div class="col-12">
+            <label for="customerId" class="form-label">Customer ID</label>
+            <input type="number" th:field="*{customerId}" class="form-control" id="customerId" required>
+        </div>
 
-    <button type="submit">Book</button>
-</form>
-</body>
+        <div class="col-12">
+            <label for="serviceId" class="form-label">Service ID</label>
+            <input type="number" th:field="*{serviceId}" class="form-control" id="serviceId" required>
+        </div>
+
+        <div class="col-12">
+            <label for="dateTime" class="form-label">Date & Time</label>
+            <input type="datetime-local" th:field="*{dateTime}" class="form-control" id="dateTime" required>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Book Appointment</button>
+        </div>
+    </form>
+</div>
 </html>
