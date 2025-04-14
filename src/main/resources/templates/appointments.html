@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: body}">
-<div class="container">
-    <h2 class="mb-4">My Appointments</h2>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>My Appointments</title>
+</head>
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped align-middle">
-            <thead class="table-light">
-            <tr>
-                <th>Service</th>
-                <th>Date & Time</th>
-                <th>Status</th>
-                <th>Provider</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="appt : ${appointments}">
-                <td th:text="${appt.service.name}">Service Name</td>
-                <td th:text="${appt.dateTime}">DateTime</td>
-                <td th:text="${appt.status}">Status</td>
-                <td th:text="${appt.service.providerProfile.businessName}">Provider</td>
-            </tr>
-            </tbody>
-        </table>
+<body>
+<section layout:fragment="body">
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">📅 My Appointments</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle shadow-sm">
+                <thead class="table-dark text-white">
+                <tr>
+                    <th>Service</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Provider</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="appt : ${appointments}">
+                    <td th:text="${appt.service.name}">Service Name</td>
+                    <td th:text="${#temporals.format(appt.dateTime, 'dd MMM yyyy HH:mm')}">DateTime</td>
+                    <td th:text="${appt.status}">Status</td>
+                    <td th:text="${appt.service.providerProfile.businessName}">Provider</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</section>
+</body>
 </html>
