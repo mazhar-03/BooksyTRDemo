@@ -1,12 +1,12 @@
 package org.example.booksy.repository;
 
 import org.example.booksy.model.Appointment;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -32,5 +32,7 @@ public interface IAppointmentRepository extends CrudRepository<Appointment, Long
             "WHERE a.service.providerProfile.user.id = :providerUserId AND a.status = 'COMPLETED'")
     Double findTotalIncomeByProvider(@Param("providerUserId") Long providerUserId);
 
+    @Query("SELECT a FROM Appointment a WHERE a.status = 'BOOKED' AND a.dateTime < :now")
+    List<Appointment> findOverdueAppointments(@Param("now") LocalDateTime now);
 
 }

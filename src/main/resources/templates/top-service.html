@@ -14,8 +14,6 @@
         <h2 class="text-center">Top Services with Most Bookings</h2>
         <canvas id="serviceChart" width="400" height="200"></canvas>
     </div>
-
-    <!-- Chart rendering script -->
     <script th:inline="javascript">
         let labels = /*[[${serviceData.keySet()}]]*/ [];
         let data = /*[[${serviceData.values()}]]*/ [];

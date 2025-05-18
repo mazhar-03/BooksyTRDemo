@@ -26,5 +26,7 @@ public class Appointment {
     @JoinColumn(name = "service_id", nullable = false)
     private ServiceItem service;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AppointmentStatus status;
 }

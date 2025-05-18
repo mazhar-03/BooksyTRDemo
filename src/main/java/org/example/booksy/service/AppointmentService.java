@@ -1,11 +1,14 @@
 package org.example.booksy.service;
 
+import jakarta.transaction.Transactional;
 import org.example.booksy.model.Appointment;
+import org.example.booksy.model.AppointmentStatus;
 import org.example.booksy.model.ServiceItem;
 import org.example.booksy.model.User;
 import org.example.booksy.repository.IAppointmentRepository;
 import org.example.booksy.repository.IServiceItemRepository;
 import org.example.booksy.repository.IUserRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,7 +37,7 @@ public class AppointmentService {
                 .customer(customer)
                 .service(service)
                 .dateTime(dateTime)
-                .status("BOOKED")
+                .status(AppointmentStatus.BOOKED)
                 .build();
 
         return appointmentRepository.save(appointment);
@@ -46,5 +49,16 @@ public class AppointmentService {
 
     public List<Appointment> getAppointmentsByCustomer(Long customerId) {
         return appointmentRepository.findByCustomer_IdOrderByDateTimeAsc(customerId);
+    }
+
+    // no need to put in a controller it is a background task
+    @Scheduled(fixedRate = 60 * 60 * 1000 * 24) // every 24h
+    @Transactional
+    public void autoCompleteAppointments() {
+        List<Appointment> overdue = appointmentRepository.findOverdueAppointments(LocalDateTime.now());
+        for (Appointment a : overdue) {
+            a.setStatus(AppointmentStatus.COMPLETED);
+        }
+        appointmentRepository.saveAll(overdue);
     }
 }

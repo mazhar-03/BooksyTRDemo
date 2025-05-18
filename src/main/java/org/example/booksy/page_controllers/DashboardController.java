@@ -2,7 +2,6 @@ package org.example.booksy.page_controllers;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.booksy.model.User;
-import org.example.booksy.service.ServiceItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

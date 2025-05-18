@@ -10,7 +10,7 @@
 <div layout:fragment="content">
     <div class="container mt-5">
         <div class="col-md-6 offset-md-3">
-            <h2 class="mb-4 text-center">📆 Book an Appointment</h2>
+            <h2 class="mb-4 text-center">Book an Appointment</h2>
             <form th:action="@{/appointments/book}" method="post" th:object="${appointmentRequest}" class="row g-3">
                 <input type="hidden" th:field="*{customerId}" />
                 <input type="hidden" th:field="*{serviceId}" />

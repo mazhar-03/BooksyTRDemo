@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html
-
+<html   xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout}">
 <head>
@@ -13,7 +12,6 @@
         <h2 class="text-center">Top Cities with Most Bookings</h2>
         <canvas id="cityChart" width="200" height="100"></canvas>
     </div>
-
     <script th:inline="javascript">
         let labels = /*[[${cityData.keySet()}]]*/ [];
         let data = /*[[${cityData.values()}]]*/ [];
