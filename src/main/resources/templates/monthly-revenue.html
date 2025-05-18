@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <title>Monthly Revenue</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <h2 class="text-center">📊 Monthly Revenue</h2>
+        <canvas id="revenueChart"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        let labels = /*[[${monthlyRevenue.keySet()}]]*/ [];
+        let data = /*[[${monthlyRevenue.values()}]]*/ [];
+
+        new Chart(document.getElementById("revenueChart"), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Revenue (₺)',
+                    data: data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

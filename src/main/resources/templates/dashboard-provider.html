@@ -12,7 +12,7 @@
     <h2 class="text-center">👋 Welcome, Provider!</h2>
     <p class="lead text-center">Manage your services and view upcoming appointments.</p>
 
-    <div class="d-flex justify-content-center mt-4 gap-2">
+    <div class="d-flex justify-content-center mt-4 gap-2 flex-wrap">
       <a th:href="@{/appointments/personal}" class="btn btn-outline-primary">My Bookings</a>
       <a th:href="@{/appointments/provider}" class="btn btn-outline-secondary">Customer Appointments</a>
       <a th:href="@{/services/provider/my-services}" class="btn btn-outline-dark">My Services</a>
@@ -27,8 +27,23 @@
          class="btn btn-warning">
         Create Profile
       </a>
+
+      <!-- 🔥 New Statistics Dropdown -->
+      <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle" type="button" id="statsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          📈 Statistics
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="statsDropdown">
+          <li><a class="dropdown-item" th:href="@{/stats/monthly-revenue}">Monthly Revenue</a></li>
+          <li><a class="dropdown-item" th:href="@{/stats/income-overview}">Income Overview</a></li>
+          <li><a class="dropdown-item" th:href="@{/stats/top-cities}">Top Cities</a></li>
+          <li><a class="dropdown-item" th:href="@{/stats/top-services}">Top Services</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

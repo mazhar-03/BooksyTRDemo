@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <title>Income Overview</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5 text-center">
+        <h2 class="mb-4">Total Income Overview</h2>
+        <h3><span th:text="${totalIncome} + ' ₺'">0 ₺</span></h3>
+    </div>
+</div>
+</body>
+</html>

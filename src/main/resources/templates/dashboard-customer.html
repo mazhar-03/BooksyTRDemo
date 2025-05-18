@@ -12,11 +12,23 @@
         <h2 class="text-center">👋 Welcome, Customer!</h2>
         <p class="lead text-center">You can now search for services and book appointments.</p>
 
-        <div class="d-flex justify-content-center mt-4">
-            <a th:href="@{/services/view}" class="btn btn-primary me-3">Search Services</a>
+        <div class="d-flex justify-content-center mt-4 gap-2 flex-wrap">
+            <a th:href="@{/services/view}" class="btn btn-primary">Search Services</a>
             <a th:href="@{/appointments/customer}" class="btn btn-outline-dark">My Appointments</a>
+
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="customerStatsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    📈 Popular Stats
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="customerStatsDropdown">
+                    <li><a class="dropdown-item" th:href="@{/stats/top-cities}">Top Cities</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stats/top-services}">Top Services</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

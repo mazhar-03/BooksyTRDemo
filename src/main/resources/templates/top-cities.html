@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+<head>
+    <title>Top Cities</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container mt-5">
+        <h2 class="text-center">Top Cities with Most Bookings</h2>
+        <canvas id="cityChart" width="200" height="100"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        let labels = /*[[${cityData.keySet()}]]*/ [];
+        let data = /*[[${cityData.values()}]]*/ [];
+
+        new Chart(document.getElementById("cityChart"), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Bookings',
+                    data: data,
+                    backgroundColor: 'rgba(105, 132, 100)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+
+</div>
+</body>
+</html>
